@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SwissBox</string>
+    <string name="notepad">NotePad</string>
+    <string name="home_help">Select the tool you want</string>
+    <string name="title_activity_">Activity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="save">Save</string>
 </resources>
