@@ -9,9 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 import ch.hearc.swissbox.R;
 
 /**
@@ -48,8 +45,7 @@ public class DetailFragment extends Fragment {
 
         title.setText(note.getTitle());
         description.setText(note.getDescription());
-        //SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm, dd.MM.yyyy", Locale.getDefault());
-        datetime.setText(new StringBuilder().append("Added : ").append(dateFormat.format(note.getDate())).toString());
+        //SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
+        datetime.setText(new StringBuilder().append("Added : ").append(Note.DATE_FORMAT.format(note.getDate())).toString());
     }
 }

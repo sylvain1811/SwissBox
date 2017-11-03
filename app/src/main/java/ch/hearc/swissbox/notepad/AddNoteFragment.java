@@ -12,6 +12,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import ch.hearc.swissbox.R;
 
 /**
@@ -43,10 +45,12 @@ public class AddNoteFragment extends Fragment {
 
                 note = new Note(
                         ((TextView) view.findViewById(R.id.add_title)).getText().toString(),
-                        (((TextView) view.findViewById(R.id.add_description))).getText().toString());
+                        (((TextView) view.findViewById(R.id.add_description))).getText().toString(),
+                        new Date(System.currentTimeMillis()));
 
                 NotePadActivity activity = (NotePadActivity) getActivity();
                 activity.getNotes().add(note);
+                activity.saveNotes();
                 getFragmentManager().popBackStack();
             }
         });
