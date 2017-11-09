@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SwissBox</string>
-    <string name="intro_message">Hello</string>
 
-    <string name="camera_permission_confirmation">This app demonstrates the usage of CameraView. In order to do that, it needs permission to access camera.</string>
-    <string name="camera_permission_not_granted">Camera app cannot do anything without camera permission.</string>
+    <!-- Mirror -->
+    <string name="camera_permission_confirmation">This app needs permission to access camera.</string>
+    <string name="camera_permission_not_granted">Some tools won\'t work without camera permission.</string>
 </resources>

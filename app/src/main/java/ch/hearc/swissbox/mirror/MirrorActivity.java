@@ -14,6 +14,8 @@ package ch.hearc.swissbox.mirror;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * https://github.com/google/cameraview
  */
 
 import android.Manifest;
@@ -36,15 +38,9 @@ import com.google.android.cameraview.CameraView;
 
 import ch.hearc.swissbox.R;
 
+public class MirrorActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
-/**
- * This demo app saves the taken picture to a constant file.
- * $ adb pull /sdcard/Android/data/com.google.android.cameraview.demo/files/Pictures/picture.jpg
- */
-public class MirrorActivity extends AppCompatActivity implements
-        ActivityCompat.OnRequestPermissionsResultCallback {
-
-    private static final String TAG = "MirrorActivity";
+    public static final String TAG = "MirrorActivity";
 
     private static final int REQUEST_CAMERA_PERMISSION = 1;
 
@@ -66,11 +62,10 @@ public class MirrorActivity extends AppCompatActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED) {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             mCameraView.start();
-        } else if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.CAMERA)) {
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
             ConfirmationDialogFragment
                     .newInstance(R.string.camera_permission_confirmation,
                             new String[]{Manifest.permission.CAMERA},
@@ -78,8 +73,7 @@ public class MirrorActivity extends AppCompatActivity implements
                             R.string.camera_permission_not_granted)
                     .show(getSupportFragmentManager(), FRAGMENT_DIALOG);
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                    REQUEST_CAMERA_PERMISSION);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
         }
     }
 
@@ -92,6 +86,7 @@ public class MirrorActivity extends AppCompatActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         if (mBackgroundHandler != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 mBackgroundHandler.getLooper().quitSafely();
@@ -103,18 +98,17 @@ public class MirrorActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CAMERA_PERMISSION:
                 if (permissions.length != 1 || grantResults.length != 1) {
                     throw new RuntimeException("Error on requesting camera permission.");
                 }
+
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, R.string.camera_permission_not_granted,
                             Toast.LENGTH_SHORT).show();
                 }
-                // No need to start camera here; it is handled by onResume
                 break;
         }
     }
@@ -126,8 +120,8 @@ public class MirrorActivity extends AppCompatActivity implements
         private static final String ARG_REQUEST_CODE = "request_code";
         private static final String ARG_NOT_GRANTED_MESSAGE = "not_granted_message";
 
-        public static ConfirmationDialogFragment newInstance(@StringRes int message,
-                                                             String[] permissions, int requestCode, @StringRes int notGrantedMessage) {
+        public static ConfirmationDialogFragment newInstance(@StringRes int message, String[] permissions,
+                                                             int requestCode, @StringRes int notGrantedMessage) {
             ConfirmationDialogFragment fragment = new ConfirmationDialogFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_MESSAGE, message);
@@ -142,20 +136,20 @@ public class MirrorActivity extends AppCompatActivity implements
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Bundle args = getArguments();
-            return new AlertDialog.Builder(getActivity())
-                    .setMessage(args.getInt(ARG_MESSAGE))
-                    .setPositiveButton(android.R.string.ok,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    String[] permissions = args.getStringArray(ARG_PERMISSIONS);
-                                    if (permissions == null) {
-                                        throw new IllegalArgumentException();
-                                    }
-                                    ActivityCompat.requestPermissions(getActivity(),
-                                            permissions, args.getInt(ARG_REQUEST_CODE));
-                                }
-                            })
+
+            return new AlertDialog.Builder(getActivity()).setMessage(args.getInt(ARG_MESSAGE)).setPositiveButton(android.R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String[] permissions = args.getStringArray(ARG_PERMISSIONS);
+
+                            if (permissions == null) {
+                                throw new IllegalArgumentException();
+                            }
+
+                            ActivityCompat.requestPermissions(getActivity(), permissions, args.getInt(ARG_REQUEST_CODE));
+                        }
+                    })
                     .setNegativeButton(android.R.string.cancel,
                             new DialogInterface.OnClickListener() {
                                 @Override
