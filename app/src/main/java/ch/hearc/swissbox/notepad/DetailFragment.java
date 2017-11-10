@@ -1,6 +1,5 @@
 package ch.hearc.swissbox.notepad;
 
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,8 +15,9 @@ import ch.hearc.swissbox.R;
  */
 public class DetailFragment extends Fragment {
 
-
     private Note note;
+    private NotePadActivity activity;
+    private View.OnClickListener editListener;
 
     public DetailFragment() {
         // Required empty public constructor
@@ -33,6 +33,11 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        activity = (NotePadActivity) getActivity();
+        activity.getFab().setImageResource(R.drawable.ic_mode_edit);
+        activity.getFab().setOnClickListener(editListener);
+        createEditListener();
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail, container, false);
     }
@@ -46,6 +51,17 @@ public class DetailFragment extends Fragment {
         title.setText(note.getTitle());
         description.setText(note.getDescription());
         //SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
-        datetime.setText(new StringBuilder().append("Added : ").append(Note.DATE_FORMAT.format(note.getDate())).toString());
+        datetime.setText(String.format("Added : %s", Note.DATE_FORMAT.format(note.getDate())));
+    }
+
+
+    private void createEditListener() {
+        editListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        };
     }
 }

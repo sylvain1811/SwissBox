@@ -9,7 +9,8 @@ import java.util.List;
 
 public class NotesContainer implements Serializable {
 
-    private List<Note> notes;
+    private static List<Note> notes = null;
+    private static NotesContainer INSTANCE = null;
 
     public List<Note> getNotes() {
         return notes;
@@ -19,8 +20,19 @@ public class NotesContainer implements Serializable {
         this.notes = notes;
     }
 
+    public static void init(List<Note> notes) {
+        NotesContainer.notes = notes;
+    }
 
-    public NotesContainer(List<Note> notes) {
-        this.notes = notes;
+    public static NotesContainer getInstance() {
+        if (INSTANCE == null) {
+            if (notes == null)
+                return null;
+            INSTANCE = new NotesContainer();
+        }
+        return INSTANCE;
+    }
+
+    private NotesContainer() {
     }
 }

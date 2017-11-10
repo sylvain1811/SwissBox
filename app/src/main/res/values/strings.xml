@@ -9,4 +9,6 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="save">Save</string>
+    <string name="note_added">New note added !</string>
+    <string name="msg_title_empty">Title can\'t be empty</string>
 </resources>

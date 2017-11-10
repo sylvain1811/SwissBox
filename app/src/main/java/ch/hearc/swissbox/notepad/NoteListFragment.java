@@ -20,6 +20,9 @@ import ch.hearc.swissbox.R;
 public class NoteListFragment extends ListFragment {
 
     private List<Note> notes;
+    private View.OnClickListener fabListener;
+
+    private NotePadActivity activity;
 
     public NoteListFragment() {
         // Required empty public constructor
@@ -30,9 +33,14 @@ public class NoteListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        activity = (NotePadActivity) getActivity();
+        activity.getFab().setImageResource(R.drawable.ic_add);
+        createFabListener();
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_note_list, container, false);
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -60,5 +68,25 @@ public class NoteListFragment extends ListFragment {
                         .commit();
             }
         });
+        //activity.changeFab(fabListener);
+        activity.getFab().setOnClickListener(fabListener);
+    }
+
+    private void createFabListener() {
+        fabListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddNoteFragment addNoteFragment = new AddNoteFragment();
+                getFragmentManager().
+                        beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .replace(R.id.myfragment, addNoteFragment)
+                        .addToBackStack("")
+                        .commit();
+
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+            }
+        };
     }
 }
