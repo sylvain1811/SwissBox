@@ -4,4 +4,8 @@
     <!-- Mirror -->
     <string name="camera_permission_confirmation">This app needs permission to access camera.</string>
     <string name="camera_permission_not_granted">Some tools won\'t work without camera permission.</string>
+
+    <!-- Dice -->
+    <string name="text_generator">Random generator</string>
+    <string name="button_generate">Generate</string>
 </resources>
