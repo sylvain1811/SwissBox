@@ -19,13 +19,20 @@ public class Note implements Serializable {
     private String title;
     private String description;
     private Date date;
-    public static DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy", Locale.getDefault());
+    public static DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm\ndd.MM.yyyy", Locale.getDefault());
 
     // Constructeur
     public Note(String title, String description, Date date) {
         this.setTitle(title);
         this.setDescription(description);
         this.setDate(date);
+    }
+
+    public Note(Note source) {
+        // Clone
+        this.setTitle(new String(source.title));
+        this.setDescription(new String(source.description));
+        this.setDate(new Date(System.currentTimeMillis()));
     }
 
     public JSONObject getJSONObject() {

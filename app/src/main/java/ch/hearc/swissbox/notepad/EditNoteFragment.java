@@ -16,51 +16,48 @@ import java.util.Date;
 import ch.hearc.swissbox.R;
 import ch.hearc.swissbox.tools.UsefulTools;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddNoteFragment extends Fragment {
+public class EditNoteFragment extends Fragment {
 
-    private static final String TAG = "ADDNOTEFRAGMENT";
-    private Note note = null;
+    private Note note;
     private NotePadActivity activity;
     private View.OnClickListener saveListener;
+    private int index;
 
-    public AddNoteFragment() {
+    public EditNoteFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void setArguments(Bundle args) {
         super.setArguments(args);
-        this.note = (Note) args.get("note");
+        note = (Note) args.getSerializable("note");
+        index = args.getInt("index");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         activity = (NotePadActivity) getActivity();
-
-        //Log.i(TAG, "onCreateView");
+        activity.getFab().setImageResource(R.drawable.ic_save);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_note, container, false);
+        return inflater.inflate(R.layout.fragment_edit_note, container, false);
     }
 
     @Override
-    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextView edit_title = (TextView) view.findViewById(R.id.edit_title);
+        TextView edit_description = (TextView) view.findViewById(R.id.edit_description);
 
-        //Log.i(TAG, "onViewCreated");
-        //Button btnSave = view.findViewById(R.id.btn_save);
-        TextView textViewTitle = view.findViewById(R.id.add_title);
-        TextView textViewDescription = view.findViewById(R.id.add_description);
-
-        createSaveListener(textViewTitle, textViewDescription);
-        //btnSave.setOnClickListener(saveListener);
-        activity.getFab().setImageResource(R.drawable.ic_save);
+        createSaveListener(edit_title, edit_description);
         activity.getFab().setOnClickListener(saveListener);
-        //activity.changeFab(saveListener);
 
+        edit_title.setText(note.getTitle());
+        edit_description.setText(note.getDescription());
     }
 
     private void createSaveListener(final TextView textViewTitle, final TextView textViewDescription) {
@@ -78,15 +75,17 @@ public class AddNoteFragment extends Fragment {
                 note = new Note(title, description, new Date(System.currentTimeMillis()));
 
                 NotePadActivity activity = (NotePadActivity) getActivity();
-                activity.getNotes().add(note);
+                activity.getNotes().add(note); // Adding new version
+                activity.getNotes().remove(index); // Delete old version
                 activity.saveNotes();
 
                 UsefulTools.hideKeyboard(getActivity());
 
                 getFragmentManager().popBackStack();
+                getFragmentManager().popBackStack();
+
                 Snackbar.make(view, R.string.note_saved, Snackbar.LENGTH_LONG).show();
             }
         };
     }
-
 }

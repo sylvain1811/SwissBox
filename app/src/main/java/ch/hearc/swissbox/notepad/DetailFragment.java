@@ -1,8 +1,10 @@
 package ch.hearc.swissbox.notepad;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import ch.hearc.swissbox.R;
 public class DetailFragment extends Fragment {
 
     private Note note;
+    private int index;
     private NotePadActivity activity;
     private View.OnClickListener editListener;
 
@@ -27,16 +30,27 @@ public class DetailFragment extends Fragment {
     public void setArguments(Bundle args) {
         super.setArguments(args);
         this.note = (Note) args.get("note");
+        this.index = args.getInt("index");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putSerializable("note", note);
+        savedInstanceState.putInt("index", index);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        if (savedInstanceState != null)
+            this.note = (Note) savedInstanceState.getSerializable("note");
+
         activity = (NotePadActivity) getActivity();
         activity.getFab().setImageResource(R.drawable.ic_mode_edit);
-        activity.getFab().setOnClickListener(editListener);
         createEditListener();
+        activity.getFab().setOnClickListener(editListener);
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail, container, false);
@@ -54,13 +68,28 @@ public class DetailFragment extends Fragment {
         datetime.setText(String.format("Added : %s", Note.DATE_FORMAT.format(note.getDate())));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i("MYTAG", "onResume");
+    }
 
     private void createEditListener() {
         editListener = new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
+                EditNoteFragment editNoteFragment = new EditNoteFragment();
+                Bundle args = new Bundle();
+                args.putSerializable("note", note);
+                args.putInt("index", index);
+                editNoteFragment.setArguments(args);
+                getFragmentManager().
+                        beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .replace(R.id.myfragment, editNoteFragment)
+                        .addToBackStack("")
+                        .commit();
             }
         };
     }

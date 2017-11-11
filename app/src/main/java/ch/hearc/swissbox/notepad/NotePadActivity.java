@@ -1,6 +1,7 @@
 package ch.hearc.swissbox.notepad;
 
 import android.app.FragmentTransaction;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -36,8 +37,12 @@ public class NotePadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         notes = new ArrayList<>();
+        //saveNotes();
         readNotes();
+
 
         NotesContainer.init(notes);
 
@@ -101,10 +106,6 @@ public class NotePadActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    /*public void changeFab(View.OnClickListener listener) {
-        fab.setOnClickListener(listener);
-    }*/
 
     public FloatingActionButton getFab() {
         return fab;

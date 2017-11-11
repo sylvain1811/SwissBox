@@ -9,6 +9,10 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="save">Save</string>
-    <string name="note_added">New note added !</string>
+    <string name="note_saved">Note saved !</string>
     <string name="msg_title_empty">Title can\'t be empty</string>
+    <string name="note_deleted">Note deleted successfully</string>
+    <string name="share">Share</string>
+
+    <item name="visible" type="id" />
 </resources>

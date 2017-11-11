@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:layout_margin="15dp"
     android:orientation="vertical"
-    tools:context="ch.hearc.swissbox.notepad.AddNoteFragment">
+    tools:context="ch.hearc.swissbox.notepad.EditNoteFragment">
 
     <EditText
-        android:id="@+id/add_title"
+        android:id="@+id/edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/title"
@@ -15,7 +15,7 @@
         android:padding="15dp" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/layout_add_description"
+        android:id="@+id/layout_edit_description"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="8dp"
@@ -24,7 +24,7 @@
         android:layout_marginStart="8dp">
 
         <EditText
-            android:id="@+id/add_description"
+            android:id="@+id/edit_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
@@ -36,28 +36,5 @@
             android:scrollbarStyle="insideInset"
             android:scrollbars="vertical" />
     </android.support.design.widget.TextInputLayout>
-
-    <!--
-
-        <EditText
-            android:id="@+id/add_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/title"
-            android:inputType="text" />
-
-        <MultiAutoCompleteTextView
-            android:id="@+id/add_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/description" />
-    -->
-
-    <!-- <Button
-         android:id="@+id/btn_save"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="@string/save" />-->
 
 </LinearLayout>
