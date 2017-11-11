@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ShareActionProvider;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -58,8 +59,9 @@ public class NoteListFragment extends ListFragment {
 
         ArrayAdapter adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, notes);
         setListAdapter(adapter);
-
         setListListener();
+        TextView emptyView = getView().findViewById(R.id.empty);
+        getListView().setEmptyView(emptyView);
 
         //activity.changeFab(fabListener);
         activity.getFab().setOnClickListener(fabListener);
