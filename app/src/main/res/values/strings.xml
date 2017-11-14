@@ -1,7 +1,22 @@
 <resources>
     <string name="app_name">SwissBox</string>
-
     <!-- Mirror -->
     <string name="camera_permission_confirmation">This app needs permission to access camera.</string>
     <string name="camera_permission_not_granted">Some tools won\'t work without camera permission.</string>
+
+    <!-- Notepad -->
+    <string name="notepad">NotePad</string>
+    <string name="home_help">Select the tool you want</string>
+    <string name="title_activity_">Activity</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="save">Save</string>
+    <string name="note_saved">Note saved !</string>
+    <string name="msg_title_empty">Title can\'t be empty</string>
+    <string name="note_deleted">Note deleted successfully</string>
+    <string name="share">Share</string>
+
+    <item name="visible" type="id" />
 </resources>
