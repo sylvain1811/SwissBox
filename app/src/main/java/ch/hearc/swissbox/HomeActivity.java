@@ -7,27 +7,48 @@ import android.support.v7.app.AppCompatActivity;
 import ch.hearc.swissbox.notepad.NotePadActivity;
 import ch.hearc.swissbox.mirror.MirrorActivity;
 
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private View.OnClickListener btnClickListener = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        initBtnListener();
+        /**
+         * Target the different card view
+         */
+        CardView cardFlashLight = (CardView) findViewById(R.id.card_light_id);
+        CardView cardNotePad = (CardView) findViewById(R.id.card_notepad_id);
+        CardView cardMirror = (CardView) findViewById(R.id.card_mirror_id);
 
-        Button btnNotepad = (Button) findViewById(R.id.btn_open_notepad);
-        Button btnMirror = (Button) findViewById(R.id.btn_open_mirror);
+        /**
+         * Init. the differents intent activity
+         */
+        final Intent mirrortIntent = new Intent(this, MirrorActivity.class);
+        final Intent notePadIntent = new Intent(this, NotePadActivity.class);
 
-        if (btnClickListener != null) {
-            btnNotepad.setOnClickListener(btnClickListener);
-            btnMirror.setOnClickListener(btnClickListener);
-        }
+        /**
+         * Set click listener
+         */
+        cardNotePad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(notePadIntent);
+            }
+        });
+
+        cardMirror.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(mirrortIntent);
+            }
+        });
+
     }
 
     private void launchMirror() {
@@ -41,19 +62,4 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void initBtnListener() {
-        btnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.btn_open_notepad:
-                        launchNotepad();
-                        break;
-                    case R.id.btn_open_mirror:
-                        launchMirror();
-                        break;
-                }
-            }
-        };
-    }
 }
