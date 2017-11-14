@@ -1,27 +1,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:context="ch.hearc.swissbox.notepad.AddNoteFragment">
 
     <EditText
         android:id="@+id/add_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:hint="@string/title"
-        android:inputType="text|textAutoCorrect|textAutoComplete"
-        android:padding="15dp" />
+        android:inputType="text|textCapSentences|textAutoCorrect|textAutoComplete"
+        android:textSize="24sp" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layout_add_description"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp">
+        android:animationCache="true"
+        android:hint="@string/description"
+        android:paddingEnd="4dp"
+        android:paddingStart="4dp"
+        app:hintAnimationEnabled="true">
 
         <EditText
             android:id="@+id/add_description"
@@ -29,12 +32,11 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:gravity="top"
-            android:hint="@string/description"
-            android:inputType="textMultiLine"
+            android:inputType="text|textCapSentences|textAutoCorrect|textAutoComplete|textMultiLine"
             android:overScrollMode="always"
-            android:padding="15dp"
             android:scrollbarStyle="insideInset"
             android:scrollbars="vertical" />
+
     </android.support.design.widget.TextInputLayout>
 
     <!--
