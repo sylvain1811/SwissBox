@@ -18,6 +18,7 @@
     <string name="note_deleted">Note deleted successfully</string>
     <string name="share">Share</string>
     <string name="empty_notepad">Your notepad is empty. Add a note by clicking the + button.</string>
+    <string name="mirror">Mirror</string>
 
     <item name="visible" type="id" />
     <item name="masked" type="id" />
