@@ -22,7 +22,6 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -41,14 +40,11 @@ import ch.hearc.swissbox.R;
 public class MirrorActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     public static final String TAG = "MirrorActivity";
-
     private static final int REQUEST_CAMERA_PERMISSION = 1;
-
     private static final String FRAGMENT_DIALOG = "dialog";
-
     private CameraView mCameraView;
-
     private Handler mBackgroundHandler;
+    private Runnable closeCameraRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +53,14 @@ public class MirrorActivity extends AppCompatActivity implements ActivityCompat.
 
         mCameraView = (CameraView) findViewById(R.id.camera);
         mCameraView.setFacing(CameraView.FACING_FRONT);
+
+        closeCameraRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (mCameraView != null)
+                    mCameraView.stop();
+            }
+        };
     }
 
     @Override
@@ -79,7 +83,8 @@ public class MirrorActivity extends AppCompatActivity implements ActivityCompat.
 
     @Override
     protected void onPause() {
-        mCameraView.stop();
+        Thread threadCloseCamera = new Thread(closeCameraRunnable);
+        threadCloseCamera.start();
         super.onPause();
     }
 
@@ -88,11 +93,7 @@ public class MirrorActivity extends AppCompatActivity implements ActivityCompat.
         super.onDestroy();
 
         if (mBackgroundHandler != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                mBackgroundHandler.getLooper().quitSafely();
-            } else {
-                mBackgroundHandler.getLooper().quit();
-            }
+            mBackgroundHandler.getLooper().quitSafely();
             mBackgroundHandler = null;
         }
     }
