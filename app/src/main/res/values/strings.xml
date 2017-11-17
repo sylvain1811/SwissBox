@@ -8,4 +8,6 @@
     <!-- Dice -->
     <string name="text_generator">Random generator</string>
     <string name="button_generate">Generate</string>
+    <string name="dice">Dice</string>
+
 </resources>

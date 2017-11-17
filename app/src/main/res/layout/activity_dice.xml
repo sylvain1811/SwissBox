@@ -1,34 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_dice"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ch.hearc.swissbox.dice.DiceActivity">
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:paddingBottom="12dp"
         android:paddingTop="12dp">
 
         <TableRow>
 
+            <TextView
+                android:id="@+id/text_dice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="12dp"
+                android:paddingLeft="12dp"
+                android:text="@string/dice"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/subtitle"
+                android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow>
+
             <Button
                 android:id="@+id/button_d4"
-                android:layout_width="@dimen/box_size"
-                android:layout_height="@dimen/box_size"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_d4"
                 android:padding="6dp"
                 android:text="d4"
-                android:textAlignment="center"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/button_d6"
-                android:layout_width="@dimen/box_size"
-                android:layout_height="@dimen/box_size"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_d6"
@@ -38,8 +55,8 @@
 
             <Button
                 android:id="@+id/button_d8"
-                android:layout_width="@dimen/box_size"
-                android:layout_height="@dimen/box_size"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_d8"
@@ -53,8 +70,8 @@
 
             <Button
                 android:id="@+id/button_d10"
-                android:layout_width="@dimen/box_size"
-                android:layout_height="@dimen/box_size"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_d10"
@@ -64,8 +81,8 @@
 
             <Button
                 android:id="@+id/button_d12"
-                android:layout_width="@dimen/box_size"
-                android:layout_height="@dimen/box_size"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_d12"
@@ -75,8 +92,8 @@
 
             <Button
                 android:id="@+id/button_d20"
-                android:layout_width="@dimen/box_size"
-                android:layout_height="@dimen/box_size"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_d20"
@@ -86,6 +103,15 @@
 
         </TableRow>
 
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp">
+
         <TableRow>
 
             <TextView
@@ -93,8 +119,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingBottom="12dp"
+                android:paddingLeft="12dp"
                 android:text="@string/text_generator"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/subtitle"
                 android:textStyle="bold" />
 
         </TableRow>
@@ -123,19 +152,18 @@
 
             <NumberPicker
                 android:id="@+id/picker_min"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
-
             </NumberPicker>
 
             <NumberPicker
                 android:id="@+id/picker_max"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
-
             </NumberPicker>
+
         </TableRow>
 
         <TableRow>
@@ -149,7 +177,6 @@
                 android:text="@string/button_generate" />
         </TableRow>
 
-
     </TableLayout>
 
-</LinearLayout>
+</RelativeLayout>
