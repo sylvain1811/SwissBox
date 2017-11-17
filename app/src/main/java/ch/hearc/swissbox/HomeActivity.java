@@ -9,15 +9,18 @@ import ch.hearc.swissbox.mirror.MirrorActivity;
 
 import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.Button;
 
 public class HomeActivity extends AppCompatActivity {
 
+
+    private View.OnClickListener cardClickListener = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        initCardListener();
 
         /**
          * Target the different card view
@@ -27,28 +30,11 @@ public class HomeActivity extends AppCompatActivity {
         CardView cardMirror = (CardView) findViewById(R.id.card_mirror_id);
 
         /**
-         * Init. the differents intent activity
-         */
-        final Intent mirrortIntent = new Intent(this, MirrorActivity.class);
-        final Intent notePadIntent = new Intent(this, NotePadActivity.class);
-
-        /**
          * Set click listener
          */
-        cardNotePad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(notePadIntent);
-            }
-        });
-
-        cardMirror.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(mirrortIntent);
-            }
-        });
-
+        cardNotePad.setOnClickListener(cardClickListener);
+        cardMirror.setOnClickListener(cardClickListener);
+        cardFlashLight.setOnClickListener(cardClickListener);
     }
 
     private void launchMirror() {
@@ -61,5 +47,29 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    private void launchFlashlight() {
+
+    }
+
+    private void initCardListener() {
+        cardClickListener = new View.OnClickListener() {
+            @Override
+
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.card_notepad_id:
+                        launchNotepad();
+                        break;
+                    case R.id.card_mirror_id:
+                        launchMirror();
+                        break;
+                    case R.id.card_light_id:
+                        launchFlashlight();
+                        break;
+                }
+            }
+        };
+    }
 
 }
