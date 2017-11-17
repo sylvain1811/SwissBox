@@ -21,7 +21,6 @@ import ch.hearc.swissbox.tools.UsefulTools;
  */
 public class AddNoteFragment extends Fragment {
 
-    private static final String TAG = "ADDNOTEFRAGMENT";
     private Note note = null;
     private NotePadActivity activity;
     private View.OnClickListener saveListener;
@@ -41,25 +40,18 @@ public class AddNoteFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         activity = (NotePadActivity) getActivity();
-
-        //Log.i(TAG, "onCreateView");
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_note, container, false);
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
 
-        //Log.i(TAG, "onViewCreated");
-        //Button btnSave = view.findViewById(R.id.btn_save);
         TextView textViewTitle = view.findViewById(R.id.add_title);
         TextView textViewDescription = view.findViewById(R.id.add_description);
 
         createSaveListener(textViewTitle, textViewDescription);
-        //btnSave.setOnClickListener(saveListener);
         activity.getFab().setImageResource(R.drawable.ic_save);
         activity.getFab().setOnClickListener(saveListener);
-        //activity.changeFab(saveListener);
 
     }
 

@@ -1,12 +1,12 @@
 package ch.hearc.swissbox.notepad;
 
-import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,6 +58,8 @@ public class NotePadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_note_pad);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.notepad_toolbar);
+        setSupportActionBar(toolbar);
     }
 
     public List<Note> readNotes() {

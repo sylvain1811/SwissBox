@@ -6,7 +6,20 @@
     android:layout_height="match_parent"
     tools:context="ch.hearc.swissbox.notepad.NotePadActivity">
 
-    <include layout="@layout/content_note_pad" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/notepad_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:theme="@style/AppTheme.AppBarOverlay" />
+
+    <include
+        layout="@layout/content_note_pad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

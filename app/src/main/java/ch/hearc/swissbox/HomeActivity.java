@@ -17,20 +17,24 @@ import ch.hearc.swissbox.mirror.MirrorActivity;
 
 import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.Button;
 
 public class HomeActivity extends AppCompatActivity {
 
+
+    private View.OnClickListener cardClickListener = null;
+    private FlashLight flashLight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        /**
+        initCardListener();
+
+        /*
          * Get the instance FlashLight
          */
-        final FlashLight flashLight = FlashLight.getInstance();
+        flashLight = FlashLight.getInstance();
         flashLight.setFlashAvailable(getApplicationContext()
                 .getPackageManager()
                 .hasSystemFeature(PackageManager
@@ -44,57 +48,19 @@ public class HomeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /**
-         * Target the different card view
+        /*
+          Target the different card view
          */
         CardView cardFlashLight = (CardView) findViewById(R.id.card_light_id);
         CardView cardNotePad = (CardView) findViewById(R.id.card_notepad_id);
         CardView cardMirror = (CardView) findViewById(R.id.card_mirror_id);
 
-        /**
-         * Init. the differents intent activity
+        /*
+          Set click listener
          */
-        final Intent mirrortIntent = new Intent(this, MirrorActivity.class);
-        final Intent notePadIntent = new Intent(this, NotePadActivity.class);
-
-        /**
-         * Set click listener
-         */
-        cardNotePad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(notePadIntent);
-            }
-        });
-
-        cardMirror.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(mirrortIntent);
-            }
-        });
-
-        cardFlashLight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!flashLight.isFlashAvailable()) {
-                    AlertBox();
-                    return;
-                }
-
-                try {
-                    if (flashLight.isFlashOn()) {
-                        turnOffFlashLight(flashLight);
-                        flashLight.setFlashOn(false);
-                    } else {
-                        turnOnFlashLight(flashLight);
-                        flashLight.setFlashOn(true);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        cardNotePad.setOnClickListener(cardClickListener);
+        cardMirror.setOnClickListener(cardClickListener);
+        cardFlashLight.setOnClickListener(cardClickListener);
     }
 
     /**
@@ -114,36 +80,83 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
         alert.show();
-        return;
     }
 
     /**
      * Set the flash mode ON
      */
-    public void turnOnFlashLight(FlashLight fl) {
+    public void turnOnFlashLight() {
 
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                fl.getCameraManager().setTorchMode(fl.getCameraId(), true);
+                flashLight.getCameraManager().setTorchMode(flashLight.getCameraId(), true);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
     /**
      * Set the flash mode OFF
      */
-    public void turnOffFlashLight(FlashLight fl) {
+    public void turnOffFlashLight() {
 
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                fl.getCameraManager().setTorchMode(fl.getCameraId(), false);
+                flashLight.getCameraManager().setTorchMode(flashLight.getCameraId(), false);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void flashlight() {
+        if (!flashLight.isFlashAvailable()) {
+            AlertBox();
+            return;
+        }
+
+        try {
+            if (flashLight.isFlashOn()) {
+                turnOffFlashLight();
+                flashLight.setFlashOn(false);
+            } else {
+                turnOnFlashLight();
+                flashLight.setFlashOn(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void mirror() {
+        Intent intent = new Intent(this, MirrorActivity.class);
+        startActivity(intent);
+    }
+
+    private void notepad() {
+        Intent intent = new Intent(HomeActivity.this, NotePadActivity.class);
+        startActivity(intent);
+    }
+
+    private void initCardListener() {
+        cardClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Different action foreach card.
+                switch (v.getId()) {
+                    case R.id.card_notepad_id:
+                        notepad();
+                        break;
+                    case R.id.card_mirror_id:
+                        mirror();
+                        break;
+                    case R.id.card_light_id:
+                        flashlight();
+                        break;
+                }
+            }
+        };
     }
 }

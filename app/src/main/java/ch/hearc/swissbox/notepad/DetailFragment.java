@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,6 @@ public class DetailFragment extends Fragment {
 
     private Note note;
     private int index;
-    private NotePadActivity activity;
     private View.OnClickListener editListener;
 
     public DetailFragment() {
@@ -47,7 +47,7 @@ public class DetailFragment extends Fragment {
         if (savedInstanceState != null)
             this.note = (Note) savedInstanceState.getSerializable("note");
 
-        activity = (NotePadActivity) getActivity();
+        NotePadActivity activity = (NotePadActivity) getActivity();
         activity.getFab().setImageResource(R.drawable.ic_mode_edit);
         createEditListener();
         activity.getFab().setOnClickListener(editListener);
@@ -60,6 +60,7 @@ public class DetailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         TextView title = getView().findViewById(R.id.note_title);
         TextView description = getView().findViewById(R.id.note_description);
+        description.setMovementMethod(new ScrollingMovementMethod());
         TextView datetime = getView().findViewById(R.id.note_datetime);
 
         title.setText(note.getTitle());
