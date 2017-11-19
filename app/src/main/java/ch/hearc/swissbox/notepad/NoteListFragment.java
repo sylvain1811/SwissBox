@@ -3,12 +3,18 @@ package ch.hearc.swissbox.notepad;
 
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,12 +26,15 @@ import java.util.List;
 import ch.hearc.swissbox.R;
 
 
-public class NoteListFragment extends ListFragment {
+public class NoteListFragment extends ListFragment implements SearchView.OnQueryTextListener {
 
     private List<Note> notes;
     private View.OnClickListener fabListener;
     private NotePadActivity activity;
     private AlertDialog.Builder alertDialogBuilder = null;
+    private MenuItem searchMenuItem;
+    private SearchView searchView;
+    private ArrayAdapter arrayAdapter;
 
     public NoteListFragment() {
         // Required empty public constructor
@@ -46,17 +55,33 @@ public class NoteListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        setHasOptionsMenu(true);
         this.notes = ((NotesContainer) getArguments().get("notes")).getNotes();
 
-        ArrayAdapter adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, notes);
-        setListAdapter(adapter);
+        arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, notes);
+        setListAdapter(arrayAdapter);
         setListListener();
         TextView emptyView = getView().findViewById(R.id.empty);
         getListView().setEmptyView(emptyView);
 
         //activity.changeFab(fabListener);
         activity.getFab().setOnClickListener(fabListener);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.search_menu, menu);
+        SearchManager searchManager = (SearchManager)
+                getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchMenuItem = menu.findItem(R.id.search);
+        searchView = (SearchView) searchMenuItem.getActionView();
+
+        searchView.setSearchableInfo(searchManager.
+                getSearchableInfo(getActivity().getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void setListListener() {
@@ -67,7 +92,7 @@ public class NoteListFragment extends ListFragment {
 
                 DetailFragment detailFragment = new DetailFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("note", notes.get(position));
+                bundle.putSerializable("note", (Note) getListView().getItemAtPosition(position));
                 bundle.putInt("index", position);
                 detailFragment.setArguments(bundle);
 
@@ -97,20 +122,18 @@ public class NoteListFragment extends ListFragment {
                             case 1:
                                 // Clone
                                 activity.getNotes().add(new Note(activity.getNotes().get(position)));
-                                ((ArrayAdapter) NoteListFragment.this.getListAdapter()).notifyDataSetChanged();
+                                arrayAdapter.notifyDataSetChanged();
                                 break;
                             case 2:
                                 // Delete
                                 activity.getNotes().remove(position);
                                 activity.saveNotes();
                                 Snackbar.make(view, R.string.note_deleted, Snackbar.LENGTH_LONG);
-                                ((ArrayAdapter) NoteListFragment.this.getListAdapter()).notifyDataSetChanged();
+                                arrayAdapter.notifyDataSetChanged();
                                 break;
                         }
                     }
                 });
-
-
                 alertDialogBuilder.create().show();
                 return true;
             }
@@ -139,5 +162,20 @@ public class NoteListFragment extends ListFragment {
                         .commit();
             }
         };
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    /**
+     * For search feature : https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+     */
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        arrayAdapter.getFilter().filter(newText);
+        arrayAdapter.notifyDataSetChanged();
+        return true;
     }
 }

@@ -19,6 +19,7 @@
     <string name="share">Share</string>
     <string name="empty_notepad">Your notepad is empty. Add a note by clicking the + button.</string>
     <string name="mirror">Mirror</string>
+    <string name="search">Search</string>
 
     <item name="visible" type="id" />
     <item name="masked" type="id" />
