@@ -4,22 +4,16 @@
     android:layout_height="match_parent"
     tools:context="ch.hearc.swissbox.notepad.NoteListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:text="test" />-->
-
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
     <TextView
         android:id="@+id/empty"
-        android:text="@string/empty_notepad"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"
-        />
+        android:text="@string/empty_notepad" />
 
 </FrameLayout>
