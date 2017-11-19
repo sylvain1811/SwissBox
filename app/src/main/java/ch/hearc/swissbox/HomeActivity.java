@@ -55,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
         CardView cardFlashLight = (CardView) findViewById(R.id.card_light_id);
         CardView cardNotePad = (CardView) findViewById(R.id.card_notepad_id);
         CardView cardMirror = (CardView) findViewById(R.id.card_mirror_id);
+        CardView cardDice = (CardView) findViewById(R.id.card_dice_id);
 
         /*
           Set click listener
@@ -62,6 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         cardNotePad.setOnClickListener(cardClickListener);
         cardMirror.setOnClickListener(cardClickListener);
         cardFlashLight.setOnClickListener(cardClickListener);
+        cardDice.setOnClickListener(cardClickListener);
     }
 
     /**
@@ -160,6 +162,9 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.card_light_id:
                         flashlight();
+                        break;
+                    case R.id.card_dice_id:
+                        dice();
                         break;
                 }
             }

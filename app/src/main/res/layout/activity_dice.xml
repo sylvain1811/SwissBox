@@ -40,6 +40,7 @@
                 android:drawableTop="@drawable/ic_d4"
                 android:padding="6dp"
                 android:text="d4"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <Button
@@ -51,6 +52,7 @@
                 android:drawableTop="@drawable/ic_d6"
                 android:padding="6dp"
                 android:text="d6"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <Button
@@ -62,11 +64,12 @@
                 android:drawableTop="@drawable/ic_d8"
                 android:padding="6dp"
                 android:text="d8"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
         </TableRow>
 
-        <TableRow>
+        <TableRow android:layout_height="76dp">
 
             <Button
                 android:id="@+id/button_d10"
@@ -77,6 +80,7 @@
                 android:drawableTop="@drawable/ic_d10"
                 android:padding="6dp"
                 android:text="d10"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <Button
@@ -88,6 +92,7 @@
                 android:drawableTop="@drawable/ic_d12"
                 android:padding="6dp"
                 android:text="d12"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <Button
@@ -99,6 +104,7 @@
                 android:drawableTop="@drawable/ic_d20"
                 android:padding="6dp"
                 android:text="d20"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
         </TableRow>
@@ -154,15 +160,13 @@
                 android:id="@+id/picker_min"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
-            </NumberPicker>
+                android:layout_weight="1" />
 
             <NumberPicker
                 android:id="@+id/picker_max"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
-            </NumberPicker>
+                android:layout_weight="1" />
 
         </TableRow>
 
