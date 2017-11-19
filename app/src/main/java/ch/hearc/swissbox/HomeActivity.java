@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import ch.hearc.swissbox.flashlight.FlashLight;
 import ch.hearc.swissbox.notepad.NotePadActivity;
+import ch.hearc.swissbox.dice.DiceActivity;
 import ch.hearc.swissbox.mirror.MirrorActivity;
 
 import android.support.v7.widget.CardView;
@@ -140,6 +141,11 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void dice() {
+        Intent intent = new Intent(this, DiceActivity.class);
+        startActivity(intent);
+    }
+
     private void initCardListener() {
         cardClickListener = new View.OnClickListener() {
             @Override
@@ -159,4 +165,5 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
     }
+
 }
