@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import ch.hearc.swissbox.flashlight.FlashLight;
+import ch.hearc.swissbox.location.MapsActivity;
 import ch.hearc.swissbox.notepad.NotePadActivity;
 import ch.hearc.swissbox.dice.DiceActivity;
 import ch.hearc.swissbox.mirror.MirrorActivity;
@@ -148,6 +149,11 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void location() {
+        Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
+        startActivity(intent);
+    }
+
     private void initCardListener() {
         cardClickListener = new View.OnClickListener() {
             @Override
@@ -161,7 +167,7 @@ public class HomeActivity extends AppCompatActivity {
                         mirror();
                         break;
                     case R.id.card_light_id:
-                        flashlight();
+                        location();
                         break;
                     case R.id.card_dice_id:
                         dice();
