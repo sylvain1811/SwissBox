@@ -10,14 +10,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-
-import ch.hearc.swissbox.flashlight.FlashLight;
-import ch.hearc.swissbox.notepad.NotePadActivity;
-import ch.hearc.swissbox.dice.DiceActivity;
-import ch.hearc.swissbox.mirror.MirrorActivity;
-
 import android.support.v7.widget.CardView;
 import android.view.View;
+
+import ch.hearc.swissbox.counter.CounterActivity;
+import ch.hearc.swissbox.dice.DiceActivity;
+import ch.hearc.swissbox.flashlight.FlashLight;
+import ch.hearc.swissbox.mirror.MirrorActivity;
+import ch.hearc.swissbox.notepad.NotePadActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -64,6 +64,8 @@ public class HomeActivity extends AppCompatActivity {
         cardMirror.setOnClickListener(cardClickListener);
         cardFlashLight.setOnClickListener(cardClickListener);
         cardDice.setOnClickListener(cardClickListener);
+
+        counter();
     }
 
     /**
@@ -145,6 +147,11 @@ public class HomeActivity extends AppCompatActivity {
 
     private void dice() {
         Intent intent = new Intent(this, DiceActivity.class);
+        startActivity(intent);
+    }
+
+    private void counter(){
+        Intent intent = new Intent(this, CounterActivity.class);
         startActivity(intent);
     }
 

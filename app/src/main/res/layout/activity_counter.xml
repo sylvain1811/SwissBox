@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ch.hearc.swissbox.counter.CounterActivity">
+
+
+    <TextView
+        android:id="@+id/text_counter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/space"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="12dp"
+        android:gravity="center"
+        android:text="0"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textSize="36sp" />
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_above="@id/layout_bottom" />
+
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_reset"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/button_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/box_size"
+            android:layout_weight="1"
+            android:src="@drawable/ic_exposure_plus_1_24dp" />
+
+        <ImageButton
+            android:id="@+id/button_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/box_size"
+            android:layout_weight="1"
+            android:src="@drawable/ic_exposure_neg_1_24dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Reset" />
+</RelativeLayout>
