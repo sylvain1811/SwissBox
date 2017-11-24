@@ -70,6 +70,19 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("counterValue", mTextCounter.getText().toString());
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String savedValue = savedInstanceState.getString("counterValue");
+        mTextCounter.setText(savedValue);
+    }
+
+    @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         int action = event.getAction();
         int keyCode = event.getKeyCode();
@@ -93,9 +106,8 @@ public class CounterActivity extends AppCompatActivity {
     private void increment() {
         int value = Integer.parseInt(mTextCounter.getText().toString());
 
-        RunAnimation();
-
         if (value < MAX_VALUE) {
+            runAnimationUp();
             mTextCounter.setText(String.valueOf(value + 1));
         }
     }
@@ -104,16 +116,22 @@ public class CounterActivity extends AppCompatActivity {
         int value = Integer.parseInt(mTextCounter.getText().toString());
 
         if (value > 0) {
+            runAnimationDown();
+
             mTextCounter.setText(String.valueOf(value - 1));
         }
+    }
+
+    private void runAnimationDown() {
+        mTextCounter.clearAnimation();
+        mTextCounter.startAnimation(animationDown);
     }
 
     private void reset() {
         mTextCounter.setText(String.valueOf(0));
     }
 
-    private void RunAnimation()
-    {
+    private void runAnimationUp() {
         mTextCounter.clearAnimation();
         mTextCounter.startAnimation(animationUp);
     }

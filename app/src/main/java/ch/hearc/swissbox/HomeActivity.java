@@ -64,8 +64,6 @@ public class HomeActivity extends AppCompatActivity {
         cardMirror.setOnClickListener(cardClickListener);
         cardFlashLight.setOnClickListener(cardClickListener);
         cardDice.setOnClickListener(cardClickListener);
-
-        counter();
     }
 
     /**
@@ -150,7 +148,7 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void counter(){
+    private void counter() {
         Intent intent = new Intent(this, CounterActivity.class);
         startActivity(intent);
     }

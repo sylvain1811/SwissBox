@@ -29,10 +29,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".mirror.MirrorActivity" />
+        <activity
+            android:name=".mirror.MirrorActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".dice.DiceActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ActionBar" />
 
         <activity android:name=".notepad.NotePadActivity">
