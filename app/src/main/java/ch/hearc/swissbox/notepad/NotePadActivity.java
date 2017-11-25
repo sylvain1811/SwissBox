@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 
 import org.json.JSONArray;
@@ -44,7 +45,6 @@ public class NotePadActivity extends AppCompatActivity {
         //saveNotes();
         readNotes();
 
-
         NotesContainer.init(notes);
 
         NoteListFragment fragment = new NoteListFragment();
@@ -61,6 +61,7 @@ public class NotePadActivity extends AppCompatActivity {
         fab = (FloatingActionButton) findViewById(R.id.fab);
         Toolbar toolbar = (Toolbar) findViewById(R.id.notepad_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public List<Note> readNotes() {
@@ -112,5 +113,15 @@ public class NotePadActivity extends AppCompatActivity {
 
     public FloatingActionButton getFab() {
         return fab;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 }
