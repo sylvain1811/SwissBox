@@ -3,6 +3,7 @@ package ch.hearc.swissbox.dice;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -149,6 +150,8 @@ public class DiceActivity extends AppCompatActivity {
         msg.setText(String.valueOf(randValue));
         msg.setGravity(Gravity.CENTER_HORIZONTAL);
         msg.setTextColor(Color.WHITE);
+        msg.setTextSize(getResources().getDimension(R.dimen.subtitle));
+        msg.setTypeface(null, Typeface.BOLD);
         mBuilder.setView(msg);
 
         mBuilder.show();
