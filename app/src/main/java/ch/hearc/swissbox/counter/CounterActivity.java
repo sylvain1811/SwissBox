@@ -15,6 +15,8 @@ import ch.hearc.swissbox.R;
 
 public class CounterActivity extends AppCompatActivity {
 
+    public static final String TAG = "CounterActivity";
+
     //UI
     private ImageButton mButtonPlus;
     private ImageButton mButtonMinus;
@@ -25,8 +27,8 @@ public class CounterActivity extends AppCompatActivity {
     //Tools
     private static final int MAX_VALUE = 9999;
 
-    private Animation animationUp;
-    private Animation animationDown;
+    private Animation mAnimationUp;
+    private Animation mAnimationDown;
 
     //Listener
     private OnClickListener buttonListener = new OnClickListener() {
@@ -62,11 +64,11 @@ public class CounterActivity extends AppCompatActivity {
 
         mTextCounter = (TextView) findViewById(R.id.text_counter);
 
-        animationUp = AnimationUtils.loadAnimation(this, R.anim.counter_up);
-        animationUp.reset();
+        mAnimationUp = AnimationUtils.loadAnimation(this, R.anim.counter_up);
+        mAnimationUp.reset();
 
-        animationDown = AnimationUtils.loadAnimation(this, R.anim.counter_down);
-        animationDown.reset();
+        mAnimationDown = AnimationUtils.loadAnimation(this, R.anim.counter_down);
+        mAnimationDown.reset();
     }
 
     @Override
@@ -124,7 +126,7 @@ public class CounterActivity extends AppCompatActivity {
 
     private void runAnimationDown() {
         mTextCounter.clearAnimation();
-        mTextCounter.startAnimation(animationDown);
+        mTextCounter.startAnimation(mAnimationDown);
     }
 
     private void reset() {
@@ -133,6 +135,6 @@ public class CounterActivity extends AppCompatActivity {
 
     private void runAnimationUp() {
         mTextCounter.clearAnimation();
-        mTextCounter.startAnimation(animationUp);
+        mTextCounter.startAnimation(mAnimationUp);
     }
 }
