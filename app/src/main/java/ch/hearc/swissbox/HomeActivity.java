@@ -18,6 +18,7 @@ import ch.hearc.swissbox.dice.DiceActivity;
 import ch.hearc.swissbox.flashlight.FlashLight;
 import ch.hearc.swissbox.mirror.MirrorActivity;
 import ch.hearc.swissbox.notepad.NotePadActivity;
+import ch.hearc.swissbox.recorder.RecorderActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -64,6 +65,8 @@ public class HomeActivity extends AppCompatActivity {
         cardMirror.setOnClickListener(cardClickListener);
         cardFlashLight.setOnClickListener(cardClickListener);
         cardDice.setOnClickListener(cardClickListener);
+
+        recorder();
     }
 
     /**
@@ -150,6 +153,11 @@ public class HomeActivity extends AppCompatActivity {
 
     private void counter() {
         Intent intent = new Intent(this, CounterActivity.class);
+        startActivity(intent);
+    }
+
+    private void recorder() {
+        Intent intent = new Intent(this, RecorderActivity.class);
         startActivity(intent);
     }
 
