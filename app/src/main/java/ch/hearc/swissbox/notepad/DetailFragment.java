@@ -88,7 +88,7 @@ public class DetailFragment extends Fragment {
                 getFragmentManager().
                         beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .replace(R.id.myfragment, editNoteFragment)
+                        .replace(R.id.notepad_fragment, editNoteFragment)
                         .addToBackStack("")
                         .commit();
             }

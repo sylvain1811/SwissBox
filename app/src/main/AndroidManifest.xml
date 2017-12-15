@@ -19,9 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".HomeActivity"
-            android:theme="@style/AppTheme.ActionBar">
+        android:theme="@style/ActivityTheme.Primary.Base.Light">
+
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,8 +37,7 @@
         <activity
             android:name=".dice.DiceActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ActionBar" />
+            android:screenOrientation="portrait" />
 
         <activity android:name=".notepad.NotePadActivity">
             <meta-data
@@ -49,6 +48,9 @@
         <activity
             android:name=".counter.CounterActivity"
             android:theme="@style/AppTheme.ActionBar" />
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/title_activity_settings" />
     </application>
 
 </manifest>

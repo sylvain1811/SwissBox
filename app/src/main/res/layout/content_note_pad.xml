@@ -4,20 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="ch.hearc.swissbox.notepad.NotePadActivity"
-    tools:showIn="@layout/activity_note_pad"
-    android:orientation="vertical">
-
-<!--    <fragment
-        android:id="@+id/fragment_note_list"
-        android:name="ch.hearc.swissbox.notepad.NoteListFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/fragment_note_list" />-->
+    tools:showIn="@layout/activity_note_pad">
 
     <FrameLayout
-        android:id="@+id/myfragment"
+        android:id="@+id/notepad_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

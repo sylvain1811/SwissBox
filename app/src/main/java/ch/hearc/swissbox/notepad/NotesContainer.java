@@ -9,24 +9,24 @@ import java.util.List;
 
 public class NotesContainer implements Serializable {
 
-    private static List<Note> notes = null;
+    private static List<Note> NOTES = null;
     private static NotesContainer INSTANCE = null;
 
     public List<Note> getNotes() {
-        return notes;
+        return NOTES;
     }
 
     public void setNotes(List<Note> notes) {
-        this.notes = notes;
+        this.NOTES = notes;
     }
 
     public static void init(List<Note> notes) {
-        NotesContainer.notes = notes;
+        NotesContainer.NOTES = notes;
     }
 
     public static NotesContainer getInstance() {
         if (INSTANCE == null) {
-            if (notes == null)
+            if (NOTES == null)
                 return null;
             INSTANCE = new NotesContainer();
         }

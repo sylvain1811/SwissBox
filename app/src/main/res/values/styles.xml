@@ -31,4 +31,48 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+
+    <!--https://carthrottle.io/how-to-implement-flexible-night-mode-in-your-android-app-f00f0f83b70e-->
+
+    <!-- Light base activity theme -->
+    <style name="ActivityTheme.Primary.Base.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="primaryTextColor">#33343B</item>
+        <item name="secondaryTextColor">#8033343B</item>
+        <item name="backgroundCardColor">#FFFF</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorButtonNormal">@color/colorAccent</item>
+        <item name="android:buttonStyle">@style/ButtonColor</item>
+        <item name="android:windowBackground">@color/windowBackgroundLight</item>
+        <!--<item name="android:background">@color/windowBackgroundLight</item>-->
+        <!--<item name="dividerColor">#F2F2F3</item>
+        <item name="iconPlaceholder">@drawable/i_light_plholder</item>-->
+    </style>
+
+    <!-- Dark base activity theme -->
+    <style name="ActivityTheme.Primary.Base.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="primaryTextColor">#F4F4F6</item>
+        <item name="secondaryTextColor">#96F4F4F6</item>
+        <item name="backgroundCardColor">#28292e</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorButtonNormal">@color/colorAccent</item>
+        <item name="android:buttonStyle">@style/ButtonColor</item>
+        <item name="android:windowBackground">@color/windowBackgroundDark</item>
+        <!--<item name="android:background">@color/windowBackgroundDark</item>-->
+
+        <!--<item name="dividerColor">#F2F2F3</item>
+        <item name="iconPlaceholder">@drawable/i_dark_pholder</item>-->
+    </style>
+
+    <style name="HomeActivityThemeLight" parent="ActivityTheme.Primary.Base.Light">
+        <item name="android:windowBackground">@color/windowBackgroundLight</item>
+    </style>
+
+    <style name="HomeActivityThemeDark" parent="ActivityTheme.Primary.Base.Dark">
+        <item name="android:windowBackground">@color/windowBackgroundDark</item>
+    </style>
+
 </resources>

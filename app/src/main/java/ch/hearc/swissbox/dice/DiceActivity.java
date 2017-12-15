@@ -101,7 +101,7 @@ public class DiceActivity extends AppCompatActivity {
         mPickerMin.setMaxValue(100);
         mPickerMin.setValue(1);
         mMinValue = 1;
-        mPickerMin.setWrapSelectorWheel(true);
+        mPickerMin.setWrapSelectorWheel(false);
         mPickerMin.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -118,7 +118,7 @@ public class DiceActivity extends AppCompatActivity {
         mPickerMax.setMaxValue(100);
         mPickerMax.setValue(100);
         mMaxValue = 100;
-        mPickerMax.setWrapSelectorWheel(true);
+        mPickerMax.setWrapSelectorWheel(false);
         mPickerMax.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {

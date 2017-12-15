@@ -98,7 +98,7 @@ public class NoteListFragment extends ListFragment implements SearchView.OnQuery
 
                 getActivity().getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .replace(R.id.myfragment, detailFragment)
+                        .replace(R.id.notepad_fragment, detailFragment)
                         .addToBackStack("")
                         .commit();
             }
@@ -157,7 +157,7 @@ public class NoteListFragment extends ListFragment implements SearchView.OnQuery
                 getFragmentManager().
                         beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .replace(R.id.myfragment, addNoteFragment)
+                        .replace(R.id.notepad_fragment, addNoteFragment)
                         .addToBackStack("")
                         .commit();
             }

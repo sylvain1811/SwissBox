@@ -6,8 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-
+import android.view.MenuItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 import ch.hearc.swissbox.R;
+import ch.hearc.swissbox.tools.UsefulTools;
 
 public class NotePadActivity extends AppCompatActivity {
 
@@ -38,12 +38,16 @@ public class NotePadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (UsefulTools.isIsNightModeEnabled())
+            setTheme(R.style.ActivityTheme_Primary_Base_Dark);
+        else
+            setTheme(R.style.ActivityTheme_Primary_Base_Light);
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         notes = new ArrayList<>();
         //saveNotes();
         readNotes();
-
 
         NotesContainer.init(notes);
 
@@ -53,14 +57,15 @@ public class NotePadActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
         getFragmentManager().
                 beginTransaction()
-                .replace(R.id.myfragment, fragment)
+                .replace(R.id.notepad_fragment, fragment)
                 .commit();
 
         setContentView(R.layout.activity_note_pad);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.notepad_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public List<Note> readNotes() {
@@ -112,5 +117,15 @@ public class NotePadActivity extends AppCompatActivity {
 
     public FloatingActionButton getFab() {
         return fab;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 }

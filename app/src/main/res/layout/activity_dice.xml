@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context="ch.hearc.swissbox.dice.DiceActivity">
 
+    <include layout="@layout/app_bar" />
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
