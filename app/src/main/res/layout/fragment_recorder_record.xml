@@ -5,20 +5,20 @@
     tools:context="ch.hearc.swissbox.recorder.RecorderActivity">
 
     <TextView
-        android:id="@+id/text_duration"
+        android:id="@+id/text_record_duration"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="00:00"
+        android:text="0:00"
         android:textSize="@dimen/title"/>
 
     <Button
-        android:id="@+id/button_start_stop"
+        android:id="@+id/button_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_duration"
+        android:layout_below="@id/text_record_duration"
         android:layout_centerHorizontal="true"
         android:text="@string/start" />
 
