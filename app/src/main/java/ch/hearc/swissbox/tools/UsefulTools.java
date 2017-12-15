@@ -25,4 +25,15 @@ public class UsefulTools {
 
         inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+
+    public static boolean isIsNightModeEnabled() {
+        return IS_NIGHTMODE_ENABLED;
+    }
+
+    public static void setIsNightModeEnabled(boolean isNightModeEnabled) {
+        IS_NIGHTMODE_ENABLED = isNightModeEnabled;
+    }
+
+    private static boolean IS_NIGHTMODE_ENABLED = false;
 }

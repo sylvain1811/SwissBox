@@ -15,8 +15,12 @@ import ch.hearc.swissbox.flashlight.FlashLight;
 import ch.hearc.swissbox.notepad.NotePadActivity;
 import ch.hearc.swissbox.dice.DiceActivity;
 import ch.hearc.swissbox.mirror.MirrorActivity;
+import ch.hearc.swissbox.settings.SettingsActivity;
 
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class HomeActivity extends AppCompatActivity {
@@ -26,12 +30,17 @@ public class HomeActivity extends AppCompatActivity {
     private FlashLight flashLight;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         initCardListener();
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
+        setSupportActionBar(toolbar);
         /*
          * Get the instance FlashLight
          */
@@ -72,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
     private void AlertBox() {
         AlertDialog alert = new AlertDialog.Builder(this)
                 .create();
-        alert.setTitle("Error !!");
+        alert.setTitle("Error");
         alert.setMessage("Your device doesn't support flash light!");
         alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
                 new DialogInterface.OnClickListener() {
@@ -171,4 +180,19 @@ public class HomeActivity extends AppCompatActivity {
         };
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_settings:
+                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
