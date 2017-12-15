@@ -28,6 +28,7 @@
         </activity>
         <activity android:name=".mirror.MirrorActivity" />
         <activity android:name=".dice.DiceActivity" />
+
         <activity android:name=".notepad.NotePadActivity">
             <meta-data
                 android:name="android.app.searchable"
