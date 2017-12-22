@@ -32,15 +32,18 @@
 
     <!-- Counter -->
     <string name="text_reset">Reset</string>
-    <string name="title_activity_recorder">RecorderActivity</string>
 
     <!-- Recorder -->
+    <string name="title_activity_recorder">Recorder</string>
     <string name="empty_recorder">You have no audio records. Record something by clicking the + button.</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="pause">Pause</string>
+    <string name="saved">Record "%1$s" saved !</string>
     <string name="record_deleted">Record deleted successfully</string>
     <string name="record_permission_confirmation">This app needs permission to record audio from microphone.</string>
-    <string name="record_permission_not_granted">This module won\'t work without record permission.</string>
+    <string name="record_permission_not_granted">This module won\'t work without recording permission.</string>
+    <string name="write_permission_confirmation">This app needs permission to write on external storage.</string>
+    <string name="write_permission_not_granted">This module won\'t work without writing permission.</string>
     <string name="error_recording">An error has occurred during recording</string>
 </resources>

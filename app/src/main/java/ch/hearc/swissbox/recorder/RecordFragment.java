@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,8 +29,8 @@ public class RecordFragment extends Fragment {
 
     //Tools
     public static final String TAG = "RecordFragment";
-    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
-    private String[] mPermissions = {Manifest.permission.RECORD_AUDIO};
+    private static final int REQUEST_RECORDER_PERMISSIONS = 200;
+    private String[] mPermissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private RecorderActivity mActivity;
     private static final String PATH_SEPARATOR = "/";
 
@@ -42,8 +41,9 @@ public class RecordFragment extends Fragment {
     //Recorder
     private MediaRecorder mRecorder;
     private boolean mIsRecording = false;
-    private static final String STORAGE_DIR = "SwissBoxRecordings";
     private static final String EXTENSION = ".3gp";
+    private String mFilePath;
+    private String mFileName;
 
     //Listener
     private View.OnClickListener mFabListener = new View.OnClickListener() {
@@ -60,7 +60,6 @@ public class RecordFragment extends Fragment {
             } else {
                 startRecording();
             }
-            mIsRecording = !mIsRecording;
         }
     };
 
@@ -99,15 +98,13 @@ public class RecordFragment extends Fragment {
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
-        ActivityCompat.requestPermissions(getActivity(), mPermissions, REQUEST_RECORD_AUDIO_PERMISSION);
+        ActivityCompat.requestPermissions(getActivity(), mPermissions, REQUEST_RECORDER_PERMISSIONS);
 
         mActivity.getFab().setImageResource(R.drawable.ic_arrow_back);
         mActivity.getFab().setOnClickListener(mFabListener);
         mRecordButton = view.findViewById(R.id.button_record);
         mRecordButton.setOnClickListener(mRecordListener);
         mTextDuration = view.findViewById(R.id.text_record_duration);
-
-        createStorageDir();
     }
 
     @Override
@@ -128,22 +125,14 @@ public class RecordFragment extends Fragment {
         mTimerHandler.removeCallbacks(mTimerRunnable);
     }
 
-    private void createStorageDir() {
-        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), STORAGE_DIR);
-
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-    }
-
-    private String getFileName() {
-        String fileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-        fileName += PATH_SEPARATOR;
-        fileName += STORAGE_DIR;
-        fileName += PATH_SEPARATOR;
-        fileName += getCurrentTimeStamp();
-        fileName += EXTENSION;
-        return fileName;
+    private String getFilePath() {
+        String filePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        filePath += PATH_SEPARATOR;
+        filePath += RecorderActivity.STORAGE_DIR;
+        filePath += PATH_SEPARATOR;
+        mFileName = getCurrentTimeStamp() + EXTENSION;
+        filePath += mFileName;
+        return filePath;
     }
 
     private String getCurrentTimeStamp() {
@@ -161,13 +150,14 @@ public class RecordFragment extends Fragment {
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mRecorder.setOutputFile(getFileName());
+        mFilePath = getFilePath();
+        mRecorder.setOutputFile(mFilePath);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
         try {
             mRecorder.prepare();
             mRecorder.start();
-
+            mIsRecording = true;
             startTimer();
             mRecordButton.setText(getResources().getText(R.string.stop));
         } catch (IOException e) {
@@ -182,22 +172,26 @@ public class RecordFragment extends Fragment {
         mRecorder = null;
 
         stopTimer();
+        mIsRecording = false;
         mRecordButton.setText(getResources().getText(R.string.start));
+        Toast.makeText(getActivity(), getResources().getString(R.string.saved, mFileName), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case REQUEST_RECORD_AUDIO_PERMISSION:
-                if (permissions.length != 1 || grantResults.length != 1) {
-                    throw new RuntimeException("Error on requesting audio record permission.");
-                }
-
+            case REQUEST_RECORDER_PERMISSIONS:
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    getFragmentManager().popBackStack();
                     Toast.makeText(getActivity(), R.string.record_permission_not_granted, Toast.LENGTH_SHORT).show();
+                }
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getActivity(), R.string.write_permission_not_granted, Toast.LENGTH_SHORT).show();
                     getFragmentManager().popBackStack();
                 }
                 break;
         }
     }
 }
+

@@ -2,10 +2,12 @@ package ch.hearc.swissbox.recorder;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import java.io.File;
 import java.util.List;
 
 import ch.hearc.swissbox.R;
@@ -20,6 +22,7 @@ public class RecorderActivity extends AppCompatActivity {
 
     //Data
     private List<Integer> mListRecords;
+    public static final String STORAGE_DIR = "SwissBoxRecordings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,8 @@ public class RecorderActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        createStorageDir();
 
         RecorderListFragment fragment = new RecorderListFragment();
 //        Bundle bundle = new Bundle();
@@ -40,6 +45,14 @@ public class RecorderActivity extends AppCompatActivity {
                 .commit();
 
         fab = (FloatingActionButton) findViewById(R.id.fab_recorder);
+    }
+
+    private void createStorageDir() {
+        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), STORAGE_DIR);
+
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
     }
 
     public FloatingActionButton getFab() {

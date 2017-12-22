@@ -48,7 +48,7 @@
         <activity
             android:name=".recorder.RecorderActivity"
             android:label="@string/title_activity_recorder"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
