@@ -8,6 +8,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
@@ -17,9 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
 
     public static final String TAG = "RecordFragment";
 
-    private List<Record> mListRecords;
-    private ArrayAdapter mArrayAdapter;
+    private List<File> mListRecords;
+    private RecordAdapter mRecordAdapter;
     private RecorderActivity mActivity;
 
     //UI
@@ -70,16 +71,32 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
 
-        mListRecords = new ArrayList<Record>();
+
+
+        //Context context = getActivity();
+
+        mListRecords = new ArrayList<File>();
+
+        refreshList();
 //        this.mListRecords = ((NotesContainer) getArguments().get("mListRecords")).getNotes();
 
-        mArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, mListRecords);
-        setListAdapter(mArrayAdapter);
+        mRecordAdapter = new RecordAdapter(getActivity(), mListRecords);
+        setListAdapter(mRecordAdapter);
         setListListener();
+
         TextView emptyView = getView().findViewById(R.id.empty);
         getListView().setEmptyView(emptyView);
 
         mActivity.getFab().setOnClickListener(mFabListener);
+    }
+
+    private void refreshList() {
+        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), RecorderActivity.STORAGE_DIR);
+
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            mListRecords.add(file);
+        }
     }
 
     @Override
@@ -102,7 +119,7 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO Player
+
             }
         });
 
@@ -123,7 +140,7 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
                             case 1:
                                 // Delete
                                 Snackbar.make(view, R.string.record_deleted, Snackbar.LENGTH_LONG);
-                                mArrayAdapter.notifyDataSetChanged();
+                                mRecordAdapter.notifyDataSetChanged();
                                 break;
                         }
                     }
@@ -141,8 +158,8 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        mArrayAdapter.getFilter().filter(newText);
-        mArrayAdapter.notifyDataSetChanged();
+        mRecordAdapter.getFilter().filter(newText);
+        mRecordAdapter.notifyDataSetChanged();
         return true;
     }
 }
