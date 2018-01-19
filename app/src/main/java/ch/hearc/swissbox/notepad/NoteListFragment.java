@@ -110,7 +110,7 @@ public class NoteListFragment extends ListFragment implements SearchView.OnQuery
                 if (alertDialogBuilder == null) {
                     alertDialogBuilder = new AlertDialog.Builder(getActivity());
                 }
-                alertDialogBuilder.setItems(R.array.item_options, new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setItems(R.array.item_options_notepad, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

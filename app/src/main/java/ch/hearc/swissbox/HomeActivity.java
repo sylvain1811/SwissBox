@@ -8,6 +8,7 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -22,10 +23,11 @@ import ch.hearc.swissbox.flashlight.FlashLight;
 import ch.hearc.swissbox.mirror.MirrorActivity;
 import ch.hearc.swissbox.notepad.NotePadActivity;
 import ch.hearc.swissbox.settings.SettingsActivity;
-import ch.hearc.swissbox.tools.UsefulTools;
+import ch.hearc.swissbox.recorder.RecorderActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
+    public static final String TAG = "HomeActivity";
 
     private View.OnClickListener cardClickListener = null;
     private FlashLight flashLight;
@@ -45,6 +47,10 @@ public class HomeActivity extends AppCompatActivity {
             setTheme(R.style.ActivityTheme_Primary_Base_Light);
         */
         setContentView(R.layout.activity_home);
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
         initCardListener();
         Toolbar toolbar = findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
@@ -68,10 +74,10 @@ public class HomeActivity extends AppCompatActivity {
         /*
           Target the different card view
          */
-        CardView cardFlashLight = (CardView) findViewById(R.id.card_light_id);
-        CardView cardNotePad = (CardView) findViewById(R.id.card_notepad_id);
-        CardView cardMirror = (CardView) findViewById(R.id.card_mirror_id);
-        CardView cardDice = (CardView) findViewById(R.id.card_dice_id);
+        CardView cardFlashLight = findViewById(R.id.card_light_id);
+        CardView cardNotePad = findViewById(R.id.card_notepad_id);
+        CardView cardMirror = findViewById(R.id.card_mirror_id);
+        CardView cardDice = findViewById(R.id.card_dice_id);
 
         /*
           Set click listener
@@ -166,6 +172,11 @@ public class HomeActivity extends AppCompatActivity {
 
     private void counter() {
         Intent intent = new Intent(this, CounterActivity.class);
+        startActivity(intent);
+    }
+
+    private void recorder() {
+        Intent intent = new Intent(this, RecorderActivity.class);
         startActivity(intent);
     }
 

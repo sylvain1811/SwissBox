@@ -7,4 +7,10 @@
 
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+
+    <!-- Recorder -->
+    <dimen name="player_item_height">72dp</dimen>
+    <dimen name="player_item_icon_margin_start">12dp</dimen>
+    <dimen name="player_item_text_margin_start">60dp</dimen>
+
 </resources>
