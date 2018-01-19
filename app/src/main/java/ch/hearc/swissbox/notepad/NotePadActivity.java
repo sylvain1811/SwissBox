@@ -26,7 +26,7 @@ import ch.hearc.swissbox.tools.UsefulTools;
 public class NotePadActivity extends AppCompatActivity {
 
     private List<Note> notes;
-    private final String FILE_NAME = "notes.json";
+    private static final String FILE_NAME = "notes.json";
     private FloatingActionButton fab;
 
 
@@ -38,15 +38,16 @@ public class NotePadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /*
         if (UsefulTools.isIsNightModeEnabled())
             setTheme(R.style.ActivityTheme_Primary_Base_Dark);
         else
             setTheme(R.style.ActivityTheme_Primary_Base_Light);
-
+        */
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         notes = new ArrayList<>();
-        //saveNotes();
+
         readNotes();
 
         NotesContainer.init(notes);

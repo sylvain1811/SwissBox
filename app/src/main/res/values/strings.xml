@@ -37,5 +37,8 @@
 
     <!-- Strings related to Settings -->
     <string name="settings">Settings</string>
-    <string name="pref_theme">Night theme</string>
+    <string name="pref_theme">Night theme (coming soon…)</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="more_to_come">More to come !</string>
 </resources>

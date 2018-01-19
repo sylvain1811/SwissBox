@@ -1,6 +1,8 @@
 package ch.hearc.swissbox.settings;
 
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -10,10 +12,13 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +30,26 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals("switch_night_theme")) {
+        /*if (key.equals("switch_night_theme")) {
             Log.i("Preference changed", "[key : " + key + "; value : " + sharedPreferences.getBoolean(key, false) + "]");
             UsefulTools.setIsNightModeEnabled(sharedPreferences.getBoolean(key, false));
-        }
+            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+
+            builder.setTitle("Restart application")
+                    .setMessage("You must restart the application for changes to take effect.")
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // Restart
+                            Snackbar.make(findViewById(R.id.appbar),
+                                    "You must restart manually the app for changes to take effects.",
+                                    Snackbar.LENGTH_LONG
+                            ).show();
+                        }
+                    });
+
+            builder.create().show();
+        } */
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -44,14 +65,17 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getDelegate().installViewFactory();
-        getDelegate().onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
-        
+        /*
         if (UsefulTools.isIsNightModeEnabled())
             setTheme(R.style.ActivityTheme_Primary_Base_Dark);
         else
             setTheme(R.style.ActivityTheme_Primary_Base_Light);
+        */
+        getDelegate().installViewFactory();
+        getDelegate().onCreate(savedInstanceState);
+
+        super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_settings);
         setSupportActionBar((Toolbar) findViewById(R.id.appbar));

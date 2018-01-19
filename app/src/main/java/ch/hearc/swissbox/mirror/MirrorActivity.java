@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.google.android.cameraview.CameraView;
 
 import ch.hearc.swissbox.R;
+import ch.hearc.swissbox.tools.UsefulTools;
 
 public class MirrorActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -49,6 +50,11 @@ public class MirrorActivity extends AppCompatActivity implements ActivityCompat.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (UsefulTools.isIsNightModeEnabled())
+            setTheme(R.style.ActivityTheme_Primary_Base_Dark);
+        else
+            setTheme(R.style.ActivityTheme_Primary_Base_Light);
+
         setContentView(R.layout.activity_mirror);
 
         mCameraView = (CameraView) findViewById(R.id.camera);

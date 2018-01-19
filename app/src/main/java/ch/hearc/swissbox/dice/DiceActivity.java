@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 import ch.hearc.swissbox.R;
+import ch.hearc.swissbox.tools.UsefulTools;
 
 public class DiceActivity extends AppCompatActivity {
 
@@ -73,6 +74,14 @@ public class DiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*
+        if (UsefulTools.isIsNightModeEnabled())
+            setTheme(R.style.ActivityTheme_Primary_Base_Dark);
+        else
+            setTheme(R.style.ActivityTheme_Primary_Base_Light);
+        */
+
         setContentView(R.layout.activity_dice);
 
         mButtonD4 = (Button) findViewById(R.id.button_d4);

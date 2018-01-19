@@ -23,10 +23,12 @@ public class UsefulTools {
         if (view == null)
             return;
 
-        inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
-
+    // Night mode tools
     public static boolean isIsNightModeEnabled() {
         return IS_NIGHTMODE_ENABLED;
     }

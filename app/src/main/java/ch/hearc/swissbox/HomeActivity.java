@@ -22,6 +22,7 @@ import ch.hearc.swissbox.flashlight.FlashLight;
 import ch.hearc.swissbox.mirror.MirrorActivity;
 import ch.hearc.swissbox.notepad.NotePadActivity;
 import ch.hearc.swissbox.settings.SettingsActivity;
+import ch.hearc.swissbox.tools.UsefulTools;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -37,9 +38,15 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
+        if (UsefulTools.isIsNightModeEnabled())
+            setTheme(R.style.ActivityTheme_Primary_Base_Dark);
+        else
+            setTheme(R.style.ActivityTheme_Primary_Base_Light);
+        */
         setContentView(R.layout.activity_home);
         initCardListener();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
+        Toolbar toolbar = findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
         /*
          * Get the instance FlashLight

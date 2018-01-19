@@ -75,4 +75,5 @@
         <item name="android:windowBackground">@color/windowBackgroundDark</item>
     </style>
 
+    <style name="AlertDialogCustom" parent="@android:style/Theme.Material.Light.Dialog"></style>
 </resources>
