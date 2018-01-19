@@ -7,10 +7,13 @@ import android.app.ListFragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -119,7 +122,7 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                playRecord(position);
             }
         });
 
@@ -129,13 +132,14 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
                 if (mAlertDialogBuilder == null) {
                     mAlertDialogBuilder = new AlertDialog.Builder(getActivity());
                 }
-                mAlertDialogBuilder.setItems(R.array.item_options, new DialogInterface.OnClickListener() {
+                mAlertDialogBuilder.setItems(R.array.item_options_notepad, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
                                 // Share
+                                share(position);
                                 break;
                             case 1:
                                 // Delete
@@ -149,6 +153,22 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
                 return true;
             }
         });
+    }
+
+    private void playRecord(int position) {
+        Intent intent = new Intent();
+        intent.setAction(android.content.Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(mListRecords.get(position)), "audio/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(intent);
+    }
+
+    private void share(int position) {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("audio/*");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(mListRecords.get(position)));
+        startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share)));
     }
 
     @Override

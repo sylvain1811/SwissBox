@@ -41,7 +41,7 @@ public class RecordFragment extends Fragment {
     //Recorder
     private MediaRecorder mRecorder;
     private boolean mIsRecording = false;
-    private static final String EXTENSION = ".3gp";
+    private static final String EXTENSION = ".m4a";
     private String mFilePath;
     private String mFileName;
 
@@ -137,7 +137,7 @@ public class RecordFragment extends Fragment {
 
     private String getCurrentTimeStamp() {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HHmmss");
             String currentDateTime = dateFormat.format(new Date());
             return currentDateTime;
         } catch (Exception e) {
@@ -149,10 +149,10 @@ public class RecordFragment extends Fragment {
     private void startRecording() {
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mFilePath = getFilePath();
         mRecorder.setOutputFile(mFilePath);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
         try {
             mRecorder.prepare();
