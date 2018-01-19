@@ -40,6 +40,7 @@ import ch.hearc.swissbox.R;
 public class MirrorActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     public static final String TAG = "MirrorActivity";
+
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
     private CameraView mCameraView;

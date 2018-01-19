@@ -16,6 +16,7 @@ import android.widget.Button;
  * Pattern : singleton
  */
 public class FlashLight {
+    public static final String TAG = "FlashLight";
     private static FlashLight INSTANCE = null;
 
     private Button switchLight;

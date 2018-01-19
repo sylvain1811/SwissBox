@@ -27,6 +27,7 @@ import ch.hearc.swissbox.recorder.RecorderActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
+    public static final String TAG = "HomeActivity";
 
     private View.OnClickListener cardClickListener = null;
     private FlashLight flashLight;

@@ -25,10 +25,11 @@ import ch.hearc.swissbox.tools.UsefulTools;
 
 public class NotePadActivity extends AppCompatActivity {
 
+    public static final String TAG = "NotePadActivity";
+
     private List<Note> notes;
     private final String FILE_NAME = "notes.json";
     private FloatingActionButton fab;
-
 
     public List<Note> getNotes() {
         return notes;
