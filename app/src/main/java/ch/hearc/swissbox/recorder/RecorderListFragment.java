@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +24,7 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ch.hearc.swissbox.R;
@@ -33,10 +33,11 @@ import ch.hearc.swissbox.R;
 public class RecorderListFragment extends ListFragment implements SearchView.OnQueryTextListener {
 
     public static final String TAG = "RecordFragment";
+    private RecorderActivity mActivity;
 
+    //Data
     private List<File> mListRecords;
     private RecordAdapter mRecordAdapter;
-    private RecorderActivity mActivity;
 
     //UI
     private AlertDialog.Builder mAlertDialogBuilder;
@@ -74,32 +75,17 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
 
-
-
-        //Context context = getActivity();
-
         mListRecords = new ArrayList<File>();
-
         refreshList();
-//        this.mListRecords = ((NotesContainer) getArguments().get("mListRecords")).getNotes();
 
         mRecordAdapter = new RecordAdapter(getActivity(), mListRecords);
         setListAdapter(mRecordAdapter);
         setListListener();
 
-        TextView emptyView = getView().findViewById(R.id.empty);
+        TextView emptyView = getView().findViewById(R.id.text_empty);
         getListView().setEmptyView(emptyView);
 
         mActivity.getFab().setOnClickListener(mFabListener);
-    }
-
-    private void refreshList() {
-        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), RecorderActivity.STORAGE_DIR);
-
-        File[] files = dir.listFiles();
-        for (File file : files) {
-            mListRecords.add(file);
-        }
     }
 
     @Override
@@ -117,60 +103,6 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private void setListListener() {
-        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                playRecord(position);
-            }
-        });
-
-        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, final View view, final int position, long id) {
-                if (mAlertDialogBuilder == null) {
-                    mAlertDialogBuilder = new AlertDialog.Builder(getActivity());
-                }
-                mAlertDialogBuilder.setItems(R.array.item_options_notepad, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                // Share
-                                share(position);
-                                break;
-                            case 1:
-                                // Delete
-                                Snackbar.make(view, R.string.record_deleted, Snackbar.LENGTH_LONG);
-                                mRecordAdapter.notifyDataSetChanged();
-                                break;
-                        }
-                    }
-                });
-                mAlertDialogBuilder.create().show();
-                return true;
-            }
-        });
-    }
-
-    private void playRecord(int position) {
-        Intent intent = new Intent();
-        intent.setAction(android.content.Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(mListRecords.get(position)), "audio/*");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(intent);
-    }
-
-    private void share(int position) {
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.setType("audio/*");
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(mListRecords.get(position)));
-        startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share)));
-    }
-
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
@@ -181,5 +113,73 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
         mRecordAdapter.getFilter().filter(newText);
         mRecordAdapter.notifyDataSetChanged();
         return true;
+    }
+
+    private void refreshList() {
+        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), RecorderActivity.STORAGE_DIR);
+
+        File[] files = dir.listFiles();
+        mListRecords.addAll(Arrays.asList(files));
+    }
+
+    private void setListListener() {
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Play song using default player
+                playRecord(position);
+            }
+        });
+
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, final View view, final int position, long id) {
+                if (mAlertDialogBuilder == null) {
+                    mAlertDialogBuilder = new AlertDialog.Builder(getActivity());
+                }
+                mAlertDialogBuilder.setItems(R.array.item_options_recorder, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                // Share
+                                shareRecord(position);
+                                break;
+                            case 1:
+                                // Delete
+                                deleteRecord(position, view);
+                                break;
+                        }
+                    }
+                });
+                mAlertDialogBuilder.create().show();
+                return true;
+            }
+        });
+    }
+
+    private void deleteRecord(int position, View view) {
+        mListRecords.get(position).delete();
+        mListRecords.remove(position);
+        Snackbar.make(view, R.string.record_deleted, Snackbar.LENGTH_LONG).show();
+        mRecordAdapter.notifyDataSetChanged();
+    }
+
+    private void playRecord(int position) {
+        Intent intent = new Intent();
+        intent.setAction(android.content.Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(mListRecords.get(position)), "audio/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(intent);
+    }
+
+    private void shareRecord(int position) {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("audio/*");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(mListRecords.get(position)));
+        startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share)));
     }
 }
