@@ -69,8 +69,6 @@ public class HomeActivity extends AppCompatActivity {
         cardMirror.setOnClickListener(cardClickListener);
         cardFlashLight.setOnClickListener(cardClickListener);
         cardDice.setOnClickListener(cardClickListener);
-
-        recorder();
     }
 
     /**

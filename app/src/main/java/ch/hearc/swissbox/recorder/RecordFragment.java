@@ -116,6 +116,23 @@ public class RecordFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_RECORDER_PERMISSIONS:
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    getFragmentManager().popBackStack();
+                    Toast.makeText(getActivity(), R.string.record_permission_not_granted, Toast.LENGTH_SHORT).show();
+                }
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getActivity(), R.string.write_permission_not_granted, Toast.LENGTH_SHORT).show();
+                    getFragmentManager().popBackStack();
+                }
+                break;
+        }
+    }
+
     private void startTimer() {
         mStartTime = System.currentTimeMillis();
         mTimerHandler.postDelayed(mTimerRunnable, 0);
@@ -177,21 +194,5 @@ public class RecordFragment extends Fragment {
         Toast.makeText(getActivity(), getResources().getString(R.string.saved, mFileName), Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_RECORDER_PERMISSIONS:
-                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    getFragmentManager().popBackStack();
-                    Toast.makeText(getActivity(), R.string.record_permission_not_granted, Toast.LENGTH_SHORT).show();
-                }
-                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getActivity(), R.string.write_permission_not_granted, Toast.LENGTH_SHORT).show();
-                    getFragmentManager().popBackStack();
-                }
-                break;
-        }
-    }
 }
 
