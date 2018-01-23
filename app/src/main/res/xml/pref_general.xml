@@ -2,9 +2,16 @@
 
     <SwitchPreference
         android:defaultValue="false"
+        android:enabled="true"
+        android:key="switch_experimental"
+        android:title="Enable experimental features" />
+
+    <SwitchPreference
+        android:defaultValue="false"
         android:enabled="false"
         android:key="switch_night_theme"
         android:title="@string/pref_theme" />
+
     <Preference
         android:enabled="false"
         android:title="@string/more_to_come" />

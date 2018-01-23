@@ -2,6 +2,8 @@ package ch.hearc.swissbox.tools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -37,5 +39,11 @@ public class UsefulTools {
         IS_NIGHTMODE_ENABLED = isNightModeEnabled;
     }
 
+    public static void isExperimentalModeEnabled()
+    {
+
+    }
+
     private static boolean IS_NIGHTMODE_ENABLED = false;
+    //private static boolean IS_EXPERIMENTALMODE_ENABLED = PreferenceManager.getDefaultSharedPreferences;
 }

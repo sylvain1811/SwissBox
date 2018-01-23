@@ -9,6 +9,7 @@ import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -16,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import java.util.ArrayList;
 
 import ch.hearc.swissbox.counter.CounterActivity;
 import ch.hearc.swissbox.dice.DiceActivity;
@@ -32,10 +35,20 @@ public class HomeActivity extends AppCompatActivity {
 
     private View.OnClickListener cardClickListener = null;
     private FlashLight flashLight;
+    private ArrayList<CardView> cardViews;
 
     @Override
     protected void onResume() {
         super.onResume();
+        // Read preference to enable location or not
+        //cardLocation.setEnabled(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("switch_experimental", false));
+        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("switch_experimental", false)) {
+            for (CardView cardView : cardViews) {
+                if (cardView.getId() == R.id.card_location_id) {
+                    cardView.setOnClickListener(null);
+                }
+            }
+        }
     }
 
     @Override
@@ -75,18 +88,22 @@ public class HomeActivity extends AppCompatActivity {
         /*
           Target the different card view
          */
-        CardView cardFlashLight = findViewById(R.id.card_light_id);
-        CardView cardNotePad = findViewById(R.id.card_notepad_id);
-        CardView cardMirror = findViewById(R.id.card_mirror_id);
-        CardView cardDice = findViewById(R.id.card_dice_id);
+        cardViews = new ArrayList<>(10);
+        cardViews.add((CardView) findViewById(R.id.card_light_id));
+        cardViews.add((CardView) findViewById(R.id.card_notepad_id));
+        cardViews.add((CardView) findViewById(R.id.card_mirror_id));
+        cardViews.add((CardView) findViewById(R.id.card_dice_id));
+        cardViews.add((CardView) findViewById(R.id.card_recorder_id));
+        cardViews.add((CardView) findViewById(R.id.card_counter_id));
+        cardViews.add((CardView) findViewById(R.id.card_location_id));
+
 
         /*
           Set click listener
          */
-        cardNotePad.setOnClickListener(cardClickListener);
-        cardMirror.setOnClickListener(cardClickListener);
-        cardFlashLight.setOnClickListener(cardClickListener);
-        cardDice.setOnClickListener(cardClickListener);
+        for (CardView card : cardViews) {
+            card.setOnClickListener(cardClickListener);
+        }
     }
 
     /**
@@ -157,7 +174,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void mirror() {
-        Intent intent = new Intent(this, MirrorActivity.class);
+        Intent intent = new Intent(HomeActivity.this, MirrorActivity.class);
         startActivity(intent);
     }
 
@@ -167,20 +184,20 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void dice() {
-        Intent intent = new Intent(this, DiceActivity.class);
+        Intent intent = new Intent(HomeActivity.this, DiceActivity.class);
         startActivity(intent);
     }
 
     private void counter() {
-        Intent intent = new Intent(this, CounterActivity.class);
+        Intent intent = new Intent(HomeActivity.this, CounterActivity.class);
         startActivity(intent);
     }
 
     private void recorder() {
-        Intent intent = new Intent(this, RecorderActivity.class);
+        Intent intent = new Intent(HomeActivity.this, RecorderActivity.class);
         startActivity(intent);
     }
-    
+
     private void location() {
         Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
         startActivity(intent);
@@ -203,7 +220,15 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.card_dice_id:
                         dice();
-                        //case R.id.car
+                        break;
+                    case R.id.card_recorder_id:
+                        recorder();
+                        break;
+                    case R.id.card_location_id:
+                        location();
+                        break;
+                    case R.id.card_counter_id:
+                        counter();
                         break;
                 }
             }

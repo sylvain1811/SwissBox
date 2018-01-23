@@ -50,6 +50,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
             builder.create().show();
         } */
+
+        Log.i("Preference changed", "[key : " + key + "; value : " + sharedPreferences.getBoolean(key, false) + "]");
+        sharedPreferences.getBoolean(key, false);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
