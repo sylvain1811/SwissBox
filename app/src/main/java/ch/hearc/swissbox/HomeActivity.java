@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -40,13 +41,25 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         // Read preference to enable location or not
         //cardLocation.setEnabled(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("switch_experimental", false));
         if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("switch_experimental", false)) {
             for (CardView cardView : cardViews) {
                 if (cardView.getId() == R.id.card_location_id) {
-                    cardView.setOnClickListener(null);
+                    cardView.setAlpha((float) 0.5);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Snackbar.make(view, "Experimental feature. May contains bug. Unavailable.", Snackbar.LENGTH_SHORT).show();
+                        }
+                    });
                 }
+            }
+        } else {
+            for (CardView cardView : cardViews) {
+                cardView.setOnClickListener(cardClickListener);
+                cardView.setAlpha(1);
             }
         }
     }
