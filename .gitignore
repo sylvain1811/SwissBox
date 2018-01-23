@@ -4,6 +4,9 @@
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
 
+#.env
+.google_map_api.xml
+
 # Built application files
 *.apk
 *.ap_
@@ -125,5 +128,7 @@ fabric.properties
 ### AndroidStudio Patch ###
 
 !/gradle/wrapper/gradle-wrapper.jar
+
+
 
 # End of https://www.gitignore.io/api/androidstudio

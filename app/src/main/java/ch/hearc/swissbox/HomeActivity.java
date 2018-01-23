@@ -179,6 +179,11 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RecorderActivity.class);
         startActivity(intent);
     }
+    
+    private void location() {
+        Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
+        startActivity(intent);
+    }
 
     private void initCardListener() {
         cardClickListener = new View.OnClickListener() {

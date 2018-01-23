@@ -29,6 +29,7 @@
     <string name="text_generator">Random generator</string>
     <string name="button_generate">Generate</string>
     <string name="dice">Dice</string>
+    <string name="title_activity_maps">Map</string>
 
     <!-- Counter -->
     <string name="text_reset">Reset</string>
