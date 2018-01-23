@@ -167,7 +167,7 @@ public class HomeActivity extends AppCompatActivity {
                         mirror();
                         break;
                     case R.id.card_light_id:
-                        location();
+                        flashlight();
                         break;
                     case R.id.card_dice_id:
                         dice();
