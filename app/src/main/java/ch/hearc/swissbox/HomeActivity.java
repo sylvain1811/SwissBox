@@ -20,6 +20,7 @@ import android.view.View;
 import ch.hearc.swissbox.counter.CounterActivity;
 import ch.hearc.swissbox.dice.DiceActivity;
 import ch.hearc.swissbox.flashlight.FlashLight;
+import ch.hearc.swissbox.location.MapsActivity;
 import ch.hearc.swissbox.mirror.MirrorActivity;
 import ch.hearc.swissbox.notepad.NotePadActivity;
 import ch.hearc.swissbox.settings.SettingsActivity;
@@ -202,6 +203,7 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.card_dice_id:
                         dice();
+                        //case R.id.car
                         break;
                 }
             }
