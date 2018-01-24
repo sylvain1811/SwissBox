@@ -1,6 +1,8 @@
 package ch.hearc.swissbox.recorder;
 
 import android.content.Context;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +28,11 @@ public class RecordAdapter extends ArrayAdapter<File> {
     public View getView(int position, View convertView, ViewGroup parent) {
         File file = getItem(position);
 
-//        Uri uri = Uri.parse(file.getAbsolutePath());
-//        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-//        mmr.setDataSource(getContext(), uri);
-//        String duration = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-//        int durationSeconds = Integer.parseInt(duration) * 1000;
+        Uri uri = Uri.parse(file.getAbsolutePath());
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        mmr.setDataSource(getContext(), uri);
+        String duration = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        int durationSeconds = Integer.parseInt(duration) / 1000;
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.recorder_list_item, parent, false);
@@ -38,8 +40,7 @@ public class RecordAdapter extends ArrayAdapter<File> {
         TextView textTop = (TextView) convertView.findViewById(R.id.text_top);
         TextView textBottom = (TextView) convertView.findViewById(R.id.text_bottom);
         textTop.setText(file.getName());
-//        textBottom.setText(Integer.toString(durationSeconds) + " s");
-        textBottom.setText(Integer.toString(0) + " s");
+        textBottom.setText(Integer.toString(durationSeconds) + " s");
 
         return convertView;
     }

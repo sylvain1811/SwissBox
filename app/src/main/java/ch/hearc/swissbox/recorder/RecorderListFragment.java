@@ -119,7 +119,9 @@ public class RecorderListFragment extends ListFragment implements SearchView.OnQ
         File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), RecorderActivity.STORAGE_DIR);
 
         File[] files = dir.listFiles();
-        mListRecords.addAll(Arrays.asList(files));
+        if (files != null) {
+            mListRecords.addAll(Arrays.asList(files));
+        }
     }
 
     private void setListListener() {
