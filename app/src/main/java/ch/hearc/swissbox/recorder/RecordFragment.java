@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,9 @@ public class RecordFragment extends Fragment {
     private View.OnClickListener mFabListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            getFragmentManager().popBackStack();
+            if (!mIsRecording) {
+                getFragmentManager().popBackStack();
+            }
         }
     };
 
@@ -100,8 +103,27 @@ public class RecordFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         ActivityCompat.requestPermissions(getActivity(), mPermissions, REQUEST_RECORDER_PERMISSIONS);
 
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        if (mIsRecording) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+
         mActivity.getFab().setImageResource(R.drawable.ic_arrow_back);
         mActivity.getFab().setOnClickListener(mFabListener);
+
         mRecordButton = view.findViewById(R.id.button_record);
         mRecordButton.setOnClickListener(mRecordListener);
         mTextDuration = view.findViewById(R.id.text_record_duration);
@@ -110,6 +132,7 @@ public class RecordFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+
         if (mRecorder != null) {
             mRecorder.release();
             mRecorder = null;
@@ -117,7 +140,8 @@ public class RecordFragment extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQUEST_RECORDER_PERMISSIONS:
